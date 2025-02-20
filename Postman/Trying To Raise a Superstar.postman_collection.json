@@ -1,0 +1,525 @@
+{
+	"info": {
+		"_postman_id": "87015f5b-ba3a-4ef7-8d27-d8a66f0a131e",
+		"name": "Trying To Raise a Superstar",
+		"description": "API request catalog if you really are trying to raise a superstar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41568376"
+	},
+	"item": [
+		{
+			"name": "Activity",
+			"item": [
+				{
+					"name": "Create Activity",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"taskName\": \"Hug it out\",\n  \"category\": \"Empathy\",\n  \"maxFrequency\": 3,\n  \"maxFrequencyUnit\": \"per_week\",\n  \"maxTime\": 60,\n  \"maxTimeUnit\": \"seconds\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/activities/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"activities",
+								""
+							]
+						},
+						"description": "Creates a new activity in the system.\n\n- Requires task name, category, and optional frequency/time limits\n    \n- Used by administrators to add new activities to the system"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Activity By ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"taskName\": \"Squats\",\n  \"category\": \"Physical Development\",\n  \"maxFrequency\": 2,\n  \"maxFrequencyUnit\": \"per_week\",\n  \"maxTime\": 2,\n  \"maxTimeUnit\": \"minutes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/activities/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"activities",
+								"7"
+							]
+						},
+						"description": "Updates an existing activity's details.\n\n- Allows modification of activity properties\n    \n- Maintains data integrity by not affecting existing plan mappings"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Activity By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/activities/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"activities",
+								"1"
+							]
+						},
+						"description": "Fetches a specific activity by its ID.\n\n- Returns detailed information about a single activity\n    \n- Useful for viewing or editing specific activity details"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Activity",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/activities/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"activities",
+								""
+							]
+						},
+						"description": "Retrieves all activities available in the system.\n\n- Returns a list of activities with their details including task name, category, and frequency/time limits\n    \n- Can be used for activity management and reference"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Activity by ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/activities/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"activities",
+								"4"
+							]
+						},
+						"description": "Deletes an activity if it's not associated with any plans.\n\n- Includes safety check to prevent deletion of activities mapped to plans\n    \n- Returns detailed error if activity is in use"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations towards the activities API endpoint"
+		},
+		{
+			"name": "Plan",
+			"item": [
+				{
+					"name": "Create Plan",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"2-Day Starter Plan\",\n  \"totalDays\": 2,\n  \"planDays\": [\n    {\n      \"dayNumber\": 1,\n      \"activities\": [\n        { \"activityId\": 3 }\n      ]\n    },\n    {\n      \"dayNumber\": 2,\n      \"activities\": [\n        { \"activityId\": 4 },\n        { \"activityId\": 5 }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/plans",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plans"
+							]
+						},
+						"description": "Creates a new plan with day-wise activity mappings.\n\n- Creates a complete plan structure with days and activities\n    \n- Validates activity IDs and day numbers\n    \n- Ensures data integrity through transaction"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Plan",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/plans",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plans"
+							]
+						},
+						"description": "Retrieves all plans in the system.\n\n- Returns basic plan information without day details\n    \n- Used for plan listing and overview"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/plans/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plans",
+								"2"
+							]
+						},
+						"description": "Fetches basic details of a specific plan.\n\n- Returns plan information without activity details\n    \n- Used for quick plan reference"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan By ID With Activities",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/plans/1/activities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plans",
+								"1",
+								"activities"
+							]
+						},
+						"description": "Retrieves complete plan details including all days and activities.\n\n- Returns full plan structure with nested day and activity information\n    \n- Used for detailed plan view"
+					},
+					"response": []
+				},
+				{
+					"name": "Get A Plan By ID With Activities By Day Number",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/plans/1/day/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plans",
+								"1",
+								"day",
+								"2"
+							]
+						},
+						"description": "Fetches activities for a specific day in a plan.\n\n- Returns activities mapped to a particular day\n    \n- Primary endpoint for mobile app's daily activity view"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Plan Activities for a day by Plan ID and Day Number",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"activities\": [\n    { \"activityId\": 2 }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/plans/1/day/1/activities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plans",
+								"1",
+								"day",
+								"1",
+								"activities"
+							]
+						},
+						"description": "Updates activities for a specific day in a plan.\n\n- Allows modification of day's activity list\n    \n- Maintains plan structure while updating mappings"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Plan Details By ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Plan Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/plans/1/name",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plans",
+								"1",
+								"name"
+							]
+						},
+						"description": "Updates only the name of a plan.\n\n- Simple endpoint for plan name modification\n    \n- Maintains data integrity of day and activity mappings"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Plan by ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/plans/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plans",
+								"1"
+							]
+						},
+						"description": "Deletes a plan and all its associated data.\n\n- Cascading delete of plan, days, and activity mappings\n    \n- Complete cleanup of plan-related data"
+					},
+					"response": []
+				}
+			],
+			"description": "All requests for the plan API endpoint"
+		}
+	]
+}

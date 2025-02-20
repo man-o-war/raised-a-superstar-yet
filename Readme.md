@@ -15,6 +15,7 @@ This project implements a REST API for serving day-wise activity plans that are 
   - [API Endpoints](#api-endpoints)
     - [Activities](#activities)
     - [Plans](#plans)
+      - [For easy testing, I have provided a json file, importable in Postman](#for-easy-testing-i-have-provided-a-json-file-importable-in-postman)
   - [Available Scripts](#available-scripts)
   - [Environment Variables](#environment-variables)
   - [Error Handling](#error-handling)
@@ -158,6 +159,8 @@ Below is a brief description of the available endpoints:
 
 - **DELETE /api/plans/:id**  
   Deletes a plan and all its associated day and activity mappings.
+
+#### For easy testing, I have provided a json file, importable in Postman
 
 ## Available Scripts
 
