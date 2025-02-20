@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Activity {
+  id                  Int               @id @default(autoincrement())
+  taskName           String
+  category           String
+  maxFrequency      Int?
+  maxFrequencyUnit  String?
+  maxTime           Int?
+  maxTimeUnit       String?
+  planDayActivities PlanDayActivity[]
+}
+
+model Plan {
+  id                Int       @id @default(autoincrement())
+  name             String
+  totalDays        Int
+  planDays         PlanDay[]
+}
+
+model PlanDay {
+  id          Int               @id @default(autoincrement())
+  planId      Int
+  dayNumber   Int
+  plan        Plan              @relation(fields: [planId], references: [id])
+  activities  PlanDayActivity[]
+
+  @@index([planId, dayNumber])
+}
+
+model PlanDayActivity {
+  id          Int      @id @default(autoincrement())
+  planDayId   Int
+  activityId  Int
+  activity    Activity @relation(fields: [activityId], references: [id])
+  planDay     PlanDay  @relation(fields: [planDayId], references: [id])
+  completed   Boolean  @default(false)
+
+  @@unique([planDayId, activityId])
+}
